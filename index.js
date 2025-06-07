@@ -278,6 +278,9 @@ module.exports = function ({ formats, webserver, config }) {
         data.messageTypes = [...messageTypes];
         data.metadata = {};
 
+        data.viewType = opts.owner ? "Staff view" : "Member view";
+
+
         for (const [key, value] of Object.entries(metadata)) {
           if (value !== null) {
             data.metadata[key] = value;
