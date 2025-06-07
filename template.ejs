@@ -37,6 +37,27 @@
         }
       }
 
+.view-type-label {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    background-color: #f0f0f0;
+    color: #222;
+  }
+
+  @media (prefers-color-scheme: light) {
+    .view-type-label {
+      background-color: #2c2f33;
+      color: white;
+    }
+  }
+
 
     </style>
 
@@ -73,19 +94,7 @@
 <div class="top-bar">
   <a href="/logout" class="logout-button">Logout</a>
 </div>
-<div style="
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  background-color: #2c2f33;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-family: sans-serif;
-  font-size: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  z-index: 9999;
-">
+<div class="view-type-label">
   <%= viewType %>
 </div>
 
