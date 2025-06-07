@@ -58,6 +58,27 @@
     }
   }
 
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #6b7280; /* Tailwind gray-500 */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.back-link i {
+  font-size: 13px;
+}
+
+.back-link:hover {
+  color: #374151; /* Tailwind gray-700 */
+}
+
+
+
 
     </style>
 
@@ -94,9 +115,14 @@
 <div class="top-bar">
   <a href="/logout" class="logout-button">Logout</a>
 </div>
+
 <div class="view-type-label">
   <%= viewType %>
 </div>
+<a href="/logs" class="back-link">
+  <i class="fas fa-arrow-left"></i> Back to Logs
+</a>
+
 
 
 
