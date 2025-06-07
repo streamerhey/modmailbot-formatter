@@ -265,6 +265,15 @@ module.exports = function ({ formats, webserver, config }) {
             );
           });
         }
+
+        if (opts.owner) {
+      threadMessages = threadMessages.filter(message => {
+        return (
+          message.message_type !== THREAD_MESSAGE_TYPE.SYSTEM
+          && message.message_type !== THREAD_MESSAGE_TYPE.COMMAND
+        );
+      });
+    }
         data.messages = messages;
         data.messageTypes = [...messageTypes];
         data.metadata = {};
