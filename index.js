@@ -278,7 +278,7 @@ module.exports = function ({ formats, webserver, config }) {
         data.messageTypes = [...messageTypes];
         data.metadata = {};
 
-        data.viewType = opts.owner ? "Staff view" : "Member view";
+        data.viewType = opts.owner ? "Member view" : "Staff view";
 
 
         for (const [key, value] of Object.entries(metadata)) {
