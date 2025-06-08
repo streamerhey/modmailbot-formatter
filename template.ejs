@@ -58,6 +58,10 @@
     }
   }
 
+.back-link-container {
+  margin-bottom: 16px; /* space below the back link */
+}
+
 .back-link {
   display: inline-flex;
   align-items: center;
@@ -70,12 +74,13 @@
 }
 
 .back-link i {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .back-link:hover {
   color: #374151; /* Tailwind gray-700 */
 }
+
 
 
 
@@ -119,9 +124,13 @@
 <div class="view-type-label">
   <%= viewType %>
 </div>
-<a href="/logs" class="back-link">
-  <i class="fas fa-arrow-left"></i> Back to Logs
-</a>
+<div class="back-link-container">
+  <a href="/logs" class="back-link">
+    <i class="fas fa-chevron-left"></i>
+    Back to Logs
+  </a>
+</div>
+
 
 
 
