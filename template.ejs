@@ -9,6 +9,14 @@
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
     />
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/bulma-prefers-dark" />
+    <!-- Add FontAwesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-dyZyYK1ephf6c6jz9J2POuYd7h59jPyjq+gPtE+0HUhHoHcd3eG2ODJdeP+wqlbXaXhz18+3zQcXG8VdlY5VA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
     <style>
       html {
@@ -37,76 +45,70 @@
         }
       }
 
-.view-type-label {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-family: sans-serif;
-    font-size: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    z-index: 9999;
-    background-color: #f0f0f0;
-    color: #222;
-  }
+      .view-type-label {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-family: sans-serif;
+        font-size: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        background-color: #f0f0f0;
+        color: #222;
+      }
 
-  @media (prefers-color-scheme: light) {
-    .view-type-label {
-      background-color: #2c2f33;
-      color: white;
-    }
-  }
+      @media (prefers-color-scheme: light) {
+        .view-type-label {
+          background-color: #2c2f33;
+          color: white;
+        }
+      }
 
-.back-link-container {
-  margin-bottom: 16px; /* space below the back link */
-}
+      .back-link-container {
+        margin-bottom: 1rem;
+      }
 
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  color: #6b7280; /* Tailwind gray-500 */
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+        color: #3273dc; /* Bulma primary color */
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
 
-.back-link i {
-  font-size: 12px;
-}
+      .back-link i {
+        font-size: 18px;
+      }
 
-.back-link:hover {
-  color: #374151; /* Tailwind gray-700 */
-}
+      .back-link:hover {
+        color: #2759a5; /* Bulma primary darkened */
+      }
 
+      .top-bar {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px;
+      }
 
+      .logout-button {
+        padding: 6px 12px;
+        background-color: #d9534f;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+      }
 
-
-
+      .logout-button:hover {
+        background-color: #c9302c;
+      }
     </style>
-
-<style>
-  .top-bar {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-  }
-
-  .logout-button {
-    padding: 6px 12px;
-    background-color: #d9534f;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
-  }
-
-  .logout-button:hover {
-    background-color: #c9302c;
-  }
-</style>
 
     <script>
       function imageErrorHandler(element, text) {
@@ -117,32 +119,34 @@
     </script>
   </head>
   <body>
-<div class="top-bar">
-  <a href="/logout" class="logout-button">Logout</a>
-</div>
+    <div class="top-bar">
+      <a href="/logout" class="logout-button">Logout</a>
+    </div>
 
-<div class="view-type-label">
-  <%= viewType %>
-</div>
-<div class="back-link-container">
-  <a href="/logs" class="back-link">
-    <i class="fas fa-chevron-left"></i>
-    Back to Logs
-  </a>
-</div>
-
-
-
-
+    <div class="view-type-label">
+      <%= viewType %>
+    </div>
+    <div class="back-link-container">
+      <a href="/logs" class="back-link" aria-label="Back to Logs">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        Back to Logs
+      </a>
+    </div>
 
     <section class="section">
       <div class="container is-max-desktop">
         <h1 class="title"><%= title %></h1>
-        <h6 class="subtitle is-6 timestamp" data="<%= timestamp %>" functor="toString">
+        <h6
+          class="subtitle is-6 timestamp"
+          data="<%= timestamp %>"
+          functor="toString"
+        >
           <%= timestamp %>
         </h6>
         <div class="block">
-          <table class="table is-bordered is-narrow is-fullwidth is-hoverable">
+          <table
+            class="table is-bordered is-narrow is-fullwidth is-hoverable"
+          >
             <tbody>
               <% for (const [key, value] of Object.entries(metadata)) { %>
               <tr>
@@ -150,8 +154,9 @@
                 <th><%= key %></th>
                 <td>
                   <div class="tags">
-                    <%- value.map(e => `<span class="tag">${e}</span
-                    >`).join("") %>
+                    <%- value
+                      .map((e) => `<span class="tag">${e}</span>`)
+                      .join("") %>
                   </div>
                 </td>
                 <% } else { %>
@@ -162,45 +167,74 @@
               <% } %>
             </tbody>
           </table>
-          <div class="is-flex is-flex-direction-row is-flex-wrap-wrap">
+          <div
+            class="is-flex is-flex-direction-row is-flex-wrap-wrap"
+          >
             <% messageTypes.forEach((messageType) => { %>
-              <div class="px-4 py-2">
-                <label class="checkbox">
-                  <input type="checkbox" checked onclick="filterMessageType(this)" data-message-type="<%= messageType %>" />
-                  <%= messageType %>
-                </label>
-              </div>
+            <div class="px-4 py-2">
+              <label class="checkbox">
+                <input
+                  type="checkbox"
+                  checked
+                  onclick="filterMessageType(this)"
+                  data-message-type="<%= messageType %>"
+                />
+                <%= messageType %>
+              </label>
+            </div>
             <% }) %>
           </div>
         </div>
         <% messages.forEach((message) => { %>
-          <article class="message compact is-hoverable <%= message.colour %>" data-message-type="<%= message.type_mapping %>">
-            <div class="message-body">
-              <p class="message-header-compact"><small><strong><%= message.header %></strong></small> <small><small><small><span class="timestamp" data="<%= message.timestamp %>" functor="toLocaleString"><%= message.timestamp %></span></small></small></small></p>
-              <%- message.content.replace(/\n/g, "<br>") %>
-              <% if (message.attachments.length) { %>
-                <% message.attachments.forEach((attachment, i) => { %>
-                  <br>
-                  <a href="<%- attachment %>">
-                    <img src="<%- attachment %>" onerror="imageErrorHandler(this, 'Attachment <%= i + 1 %>')" />
-                  </a>
-                <% }); %>
-              <% } %>
-            </div>
-          </article>
+        <article
+          class="message compact is-hoverable <%= message.colour %>"
+          data-message-type="<%= message.type_mapping %>"
+        >
+          <div class="message-body">
+            <p class="message-header-compact">
+              <small
+                ><strong><%= message.header %></strong></small
+              >
+              <small>
+                <small>
+                  <small
+                    ><span
+                      class="timestamp"
+                      data="<%= message.timestamp %>"
+                      functor="toLocaleString"
+                      ><%= message.timestamp %></span
+                    ></small
+                  >
+                </small>
+              </small>
+            </p>
+            <%- message.content.replace(/\n/g, "<br>") %>
+            <% if (message.attachments.length) { %>
+            <% message.attachments.forEach((attachment, i) => { %>
+            <br />
+            <a href="<%- attachment %>">
+              <img
+                src="<%- attachment %>"
+                onerror="imageErrorHandler(this, 'Attachment <%= i + 1 %>')"
+              />
+            </a>
+            <% }); %>
+            <% } %>
+          </div>
+        </article>
         <% }) %>
       </div>
     </section>
     <script>
-      document.querySelectorAll(".timestamp").forEach(e => {
+      document.querySelectorAll(".timestamp").forEach((e) => {
         e.innerHTML = new Date(e.innerHTML.trim())[e.getAttribute("functor")]();
       });
     </script>
     <script>
       function filterMessageType(checkbox) {
-        document.querySelectorAll("article.message").forEach(e => {
+        document.querySelectorAll("article.message").forEach((e) => {
           if (e.dataset.messageType === checkbox.dataset.messageType) {
-            e.style.display = (checkbox.checked) ? "block" : "none";
+            e.style.display = checkbox.checked ? "block" : "none";
           }
         });
       }
