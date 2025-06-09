@@ -109,6 +109,26 @@
       .logout-button:hover {
         background-color: #c9302c;
       }
+
+.export-btn {
+  background-color: #2c2f33;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.export-btn:hover {
+  background-color: #444851;
+}
+
     </style>
 
     <script>
@@ -145,11 +165,18 @@
         >
           <%= timestamp %>
         </h6>
-<div class="export-buttons">
-  <button onclick="downloadLog('txt')">Download TXT</button>
-  <button onclick="downloadLog('json')">Download JSON</button>
-  <button onclick="downloadLog('html')">Download HTML</button>
+<div class="export-buttons" style="margin-bottom: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+  <button class="export-btn" onclick="downloadLog('txt')">
+    <i class="fas fa-file-alt"></i> TXT
+  </button>
+  <button class="export-btn" onclick="downloadLog('json')">
+    <i class="fas fa-code"></i> JSON
+  </button>
+  <button class="export-btn" onclick="downloadLog('html')">
+    <i class="fas fa-globe"></i> HTML
+  </button>
 </div>
+
 
         <div class="block">
           <table
@@ -247,5 +274,13 @@
         });
       }
     </script>
+<script>
+  function downloadLog(format) {
+    const threadId = window.location.pathname.split("/").pop();
+    const url = `/logs/${threadId}?export=${format}`;
+    window.open(url, "_blank");
+  }
+</script>
+
   </body>
 </html>
