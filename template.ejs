@@ -137,6 +137,7 @@
     <section class="section">
       <div class="container is-max-desktop">
         <h1 class="title"><%= title %></h1>
+        
         <h6
           class="subtitle is-6 timestamp"
           data="<%= timestamp %>"
@@ -144,6 +145,12 @@
         >
           <%= timestamp %>
         </h6>
+<div class="export-buttons">
+  <button onclick="downloadLog('txt')">Download TXT</button>
+  <button onclick="downloadLog('json')">Download JSON</button>
+  <button onclick="downloadLog('html')">Download HTML</button>
+</div>
+
         <div class="block">
           <table
             class="table is-bordered is-narrow is-fullwidth is-hoverable"
