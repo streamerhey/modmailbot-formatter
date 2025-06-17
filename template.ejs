@@ -80,17 +80,18 @@
       background: #444851;
     }
     .message.compact {
-      margin-bottom: 1em;
-      border-left: 4px solid #3273dc;
-      padding-left: 10px;
-    }
-    
-    .message-header-compact {
-      font-weight: bold;
-      margin-bottom: 0.25em;
-      display: flex;
-      justify-content: space-between;
-    }
+        margin-bottom: 0.5em;
+      }
+      .message-body {
+        padding: 0.5em 0.75em;
+      }
+      .message-header-compact {
+        padding-bottom: 0.5em;
+        color: white;
+      }
+      .message-header-compact .timestamp {
+        color: #b5b5b5;
+      }
     .timestamp {
       font-size: 0.8em;
       color: #888;
@@ -164,25 +165,28 @@
 
       <% messages.forEach(message => { %>
         <article class="message compact is-hoverable <%= message.colour %>" data-message-type="<%= message.type_mapping %>">
-          <div class="message-body">
-            <div class="message-header-compact">
-              <span><strong><%= message.header %></strong></span>
-              <span class="timestamp"><%= new Date(message.timestamp).toLocaleString() %></span>
-            </div>
-            <div><%- message.content.replace(/\n/g, '<br>') %></div>
+  <div class="message-body">
+    <div class="message-header-compact" style="display: flex; justify-content: space-between; align-items: center;">
+      <span><strong><%= message.header %></strong></span>
+      <span class="timestamp" data="<%= message.timestamp %>" functor="toLocaleString"><%= message.timestamp %></span>
+    </div>
 
-            <% if (message.attachments.length) { %>
-              <div class="mt-2">
-                <% message.attachments.forEach((a, i) => { %>
-                  <a href="<%- a %>">
-                    <img src="<%- a %>" onerror="imageErrorHandler(this, 'Attachment ' + (i + 1))"
-                      style="max-width:100%;height:auto;margin-top:10px;border-radius:6px;" />
-                  </a>
-                <% }) %>
-              </div>
-            <% } %>
-          </div>
-        </article>
+    <div><%- message.content.replace(/\n/g, '<br>') %></div>
+
+    <% if (message.attachments.length) { %>
+      <div class="mt-2">
+        <% message.attachments.forEach((attachment, i) => { %>
+          <a href="<%- attachment %>">
+            <img src="<%- attachment %>" 
+                 onerror="imageErrorHandler(this, 'Attachment <%= i + 1 %>')" 
+                 style="max-width:100%;height:auto;margin-top:10px;border-radius:6px;" />
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</article>
+
       <% }) %>
     </section>
   </div>
