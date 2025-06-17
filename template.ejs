@@ -4,42 +4,111 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><%= title %></title>
-  <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
+
   <!-- Bulma & Dark Mode -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/bulma-prefers-dark" />
+
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
     html { word-wrap: break-word; }
-    .top-bar { display:flex; justify-content:flex-end; padding:10px 20px; background:#f5f5f5; border-bottom:1px solid #ddd; }
-    .logout-button { padding:8px 16px; background:#f14668; color:#fff; border-radius:6px; font-weight:600; transition:.2s;}
-    .logout-button:hover { background:#d03a5c; }
-    .view-type-label { position:fixed; top:20px; left:20px; background:#3273dc; color:#fff;
-      padding:8px 14px; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.2); font-weight:bold; z-index:1000;
-      display:inline-flex; align-items:center; gap:6px;
+    .top-bar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px 20px;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ddd;
     }
-    .back-link-container { margin:1rem 0; }
-    .back-link { display:inline-flex; align-items:center; gap:8px; font-size:16px;
-      font-weight:600; color:#3273dc; text-decoration:none; transition:color .2s;
+    .logout-button {
+      padding: 8px 16px;
+      background: #f14668;
+      color: #fff;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: 0.2s;
     }
-    .back-link:hover { color:#2759a5; }
-    .export-btn { background:#2c2f33; color:#fff; padding:8px 14px;
-      border:none; border-radius:8px; font-size:14px; font-weight:500;
-      display:inline-flex; align-items:center; gap:6px; transition:.2s;
+    .logout-button:hover {
+      background: #d03a5c;
     }
-    .export-btn:hover { background:#444851; }
-    .message.compact { margin-bottom:1em; border-left:4px solid #3273dc; padding-left:10px; }
-    .message-body { padding:0.75em 1em; }
-    .message-header-compact { font-weight:bold; margin-bottom:0.25em; display:flex; justify-content:space-between; }
-    .timestamp { font-size:0.8em; color:#888; }
-    .tags .tag { margin-right:4px; margin-bottom:4px; }
+    .view-type-label {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #3273dc;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      font-weight: bold;
+      z-index: 1000;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .back-link-container {
+      margin: 1rem 0;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #3273dc;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover {
+      color: #2759a5;
+    }
+    .export-btn {
+      background: #2c2f33;
+      color: #fff;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .export-btn:hover {
+      background: #444851;
+    }
+    .message.compact {
+      margin-bottom: 1em;
+      border-left: 4px solid #3273dc;
+      padding-left: 10px;
+    }
+    .message-body {
+      padding: 0.75em 1em;
+    }
+    .message-header-compact {
+      font-weight: bold;
+      margin-bottom: 0.25em;
+      display: flex;
+      justify-content: space-between;
+    }
+    .timestamp {
+      font-size: 0.8em;
+      color: #888;
+    }
+    .tags .tag {
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
   </style>
 </head>
+
 <body>
   <div class="top-bar">
-    <a href="/logout" class="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <a href="/logout" class="logout-button">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
   </div>
 
   <div class="view-type-label">
@@ -55,11 +124,11 @@
 
     <section class="section">
       <h1 class="title"><i class="fas fa-file-alt"></i> <%= title %></h1>
-      <h6 class="subtitle is-6 timestamp" data="<%= timestamp %>" functor="toString">
-        <i class="fas fa-clock"></i> <%= timestamp %>
+      <h6 class="subtitle is-6 timestamp">
+        <i class="fas fa-clock"></i> <%= new Date(timestamp).toLocaleString() %>
       </h6>
 
-      <div class="export-buttons mb-4">
+      <div class="mb-4">
         <button class="export-btn" onclick="downloadLog()">
           <i class="fas fa-file-alt"></i> Export TXT
         </button>
@@ -67,24 +136,31 @@
 
       <table class="table is-bordered is-narrow is-fullwidth is-hoverable">
         <tbody>
-          <% for (const [key,value] of Object.entries(metadata)) { %>
-          <tr><th><%= key %></th><td>
-            <% if (Array.isArray(value)) { %>
-              <div class="tags">
-                <%- value.map(e=>`<span class="tag is-info">${e}</span>`).join('') %>
-              </div>
-            <% } else { %><%= value %><% } %>
-          </td></tr>
+          <% for (const [key, value] of Object.entries(metadata)) { %>
+            <tr>
+              <th><%= key %></th>
+              <td>
+                <% if (Array.isArray(value)) { %>
+                  <div class="tags">
+                    <%- value.map(e => `<span class="tag is-info">${e}</span>`).join('') %>
+                  </div>
+                <% } else { %>
+                  <%= value %>
+                <% } %>
+              </td>
+            </tr>
           <% } %>
         </tbody>
       </table>
 
       <div class="is-flex is-flex-wrap-wrap mb-4">
         <% messageTypes.forEach(mt => { %>
-          <div class="mr-3 mb-2"><label class="checkbox">
-            <input type="checkbox" checked onclick="filterMessageType(this)" data-message-type="<%= mt %>" />
-            <%= mt %>
-          </label></div>
+          <div class="mr-3 mb-2">
+            <label class="checkbox">
+              <input type="checkbox" checked onclick="filterMessageType(this)" data-message-type="<%= mt %>" />
+              <%= mt %>
+            </label>
+          </div>
         <% }) %>
       </div>
 
@@ -93,13 +169,17 @@
           <div class="message-body">
             <div class="message-header-compact">
               <span><strong><%= message.header %></strong></span>
-              <span class="timestamp" data="<%= message.timestamp %>" functor="toLocaleString"><%= message.timestamp %></span>
+              <span class="timestamp"><%= new Date(message.timestamp).toLocaleString() %></span>
             </div>
-            <div><%- message.content.replace(/\n/g,'<br>') %></div>
+            <div><%- message.content.replace(/\n/g, '<br>') %></div>
+
             <% if (message.attachments.length) { %>
               <div class="mt-2">
-                <% message.attachments.forEach((a,i) => { %>
-                  <a href="<%- a %>"><img src="<%- a %>" onerror="imageErrorHandler(this,'Attachment '+(i+1))" style="max-width:100%;height:auto;margin-top:10px;border-radius:6px;" /></a>
+                <% message.attachments.forEach((a, i) => { %>
+                  <a href="<%- a %>">
+                    <img src="<%- a %>" onerror="imageErrorHandler(this, 'Attachment ' + (i + 1))"
+                      style="max-width:100%;height:auto;margin-top:10px;border-radius:6px;" />
+                  </a>
                 <% }) %>
               </div>
             <% } %>
@@ -110,15 +190,11 @@
   </div>
 
   <script>
-    document.querySelectorAll(".timestamp").forEach(e => {
-      e.innerHTML = new Date(e.innerHTML.trim())[e.getAttribute("functor")]();
-    });
-
     function filterMessageType(cb) {
-      document.querySelectorAll("article.message").forEach(el => {
-        el.style.display = el.dataset.messageType === cb.dataset.messageType
-          ? (cb.checked ? "block" : "none")
-          : el.style.display;
+      const type = cb.dataset.messageType;
+      const checked = cb.checked;
+      document.querySelectorAll(`article[data-message-type="${type}"]`).forEach(el => {
+        el.style.display = checked ? "block" : "none";
       });
     }
 
@@ -132,6 +208,9 @@
       document.body.removeChild(link);
     }
 
+    function imageErrorHandler(img, altText) {
+      img.outerHTML = `<span style="color:#999;font-style:italic;">[${altText}]</span>`;
+    }
   </script>
 </body>
 </html>
